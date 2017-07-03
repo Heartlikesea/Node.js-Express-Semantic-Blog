@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="/public/admins.css" type="text/css" />
+
+</head>
+<body>
+<header>
+    <h1>后台管理系统</h1>
+</header>
+<span class = "adminInfo">您好，{{userInfo.username}} ! <a href = "javascript:;">退出</a></span>
+<aside>
+    <ul>
+        <li><a href="javascript:;">首页</a></li>
+        <li><a href="javascript:;">设置</a></li>
+        <li><a href="/admins/user">用户管理</a></li>
+        <li id="category">
+            <a href="/admins/category">分类管理</a>
+            <ul class="dropdown" style="display:none">
+                <li><a href="javascript:;">管理首页</a></li>
+                <li><a href="/admin/category/add">添加分类</a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;">文章管理</a></li>
+        <li><a href="javascript:;">评论管理</a></li>
+    </ul>
+</aside>
+<section>
+    {% block main %}{% endblock %}
+</section>
+</body>
+</html>

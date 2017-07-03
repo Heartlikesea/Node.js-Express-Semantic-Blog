@@ -1,0 +1,135 @@
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>oHearto</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            // 登录注册的切换
+            $('#register a').click(function(){
+                $('#login').show();
+                $('#register').hide();
+            });
+
+            $('#login a').click(function(){
+                $('#login').hide();
+                $('#register').show();
+            });
+            $('#register .submit').click(function(){
+                // 通过ajax提交
+                $.ajax({
+                    type:'post',
+                    url:'/api/user/register',
+                    dataType:'json',
+                    data:{
+                        username:$('#register').find('[name="username"]').val(),
+                        password:$('#register').find('[name="password"]').val(),
+                        repassword:$('#register').find('[name="repassword"]').val()
+                    },
+                    success:function(data){
+                        alert(data.message);
+                        if(!data.code)
+                        {
+                            $('#register').hide();
+                            $('#login').show();
+                        }
+                    },
+                    error:function(err){
+                        alert(err);
+                    }
+
+                });
+            });
+
+            $('#login .submit').click(function () {
+                $.ajax({
+                    type:'post',
+                    url:'/api/user/login',
+                    dataType:'json',
+                    data:{
+                        username:$('#login').find('[name="username"]').val(),
+                        password:$('#login').find('[name="password"]').val()
+                    },
+                    success:function (data) {
+                        alert(data.message);
+                        if(!data.code)
+                        {
+                            window.location.reload();
+                        }
+                    },
+                    error:function (err) {
+                        alert(err);
+                    }
+                });
+            });
+
+            $('#logout').click(function () {
+                $.ajax({
+                    type:'get',
+                    url:'/api/user/logout',
+                    success:function (data) {
+                        if(!data.code)
+                        {
+                            window.location.reload();
+                        }
+                    }
+                })
+            })
+
+        });
+
+    </script>
+
+    <link rel="stylesheet" href="/public/main.css" type="text/css" />
+
+</head>
+
+
+<body>
+<nav class="navbar">
+    <ul>
+        <li><a href="index.html">首页</a></li>
+        <li><a href="index.html">文章</a></li>
+        <li><a href="index.html">作品</a></li>
+        <li><a href="index.html">关于</a></li>
+         <li><a id = "loginInfo">
+             {% if userInfo.isAdmin %}
+             <span id = "admin" style = "cursor:pointer;">管理员您好，进入管理</span>
+             {% elseif userInfo.username != null%}
+             <span>{{userInfo.username}}</span>
+             {% else %}
+             <span>未登录</span>
+             {% endif %}
+        </a></li>
+        <div id="logout" style = "display:none">
+            <li><a href="javascript:;">注销</a></li>
+        </div>
+
+    </ul>
+</nav>
+
+<div class="banner-wrap" id = "loginAndRegister">
+    <div class="login" id="register">
+        <h3>注册</h3>
+        <span>用户：<input name="username" type="text"/></span><br/>
+        <span>密码：<input name="password" type="text"/></span><br/>
+        <span>确认：<input name="repassword" type="text"/></span><br/>
+        <span><input class="submit" type="button" value="提交"/></span>
+        <span>已有账号？马上<a href="javascript:;">登录</a></span>
+    </div>
+</div>
+    <div class="login" id="login" style="display:none;">
+        <h3>登录</h3>
+        <span>用户：<input name="username" type="text"/></span><br/>
+        <span>密码：<input name="password" type="text"/></span><br/>
+        <span><input  class="submit" type="button" value="提交"/></span>
+        <span>没有账号？马上<a href="javascript:;">注册</a></span>
+    </div>
+
+
+
+</body>
+
+</html>
+
+
