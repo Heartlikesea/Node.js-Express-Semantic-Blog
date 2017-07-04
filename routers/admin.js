@@ -4,6 +4,8 @@
 var express = require('express');
 var router = express.Router();
 var userDBs = require('../model/userDB');
+var categoriesDBs = require('../model/categoriesDB');
+
 router.use(function (req,res,next) {
     if(!req.userInfo.isAdmin)
     {
@@ -49,6 +51,27 @@ router.get('/category',function (req, res, next) {
     res.render('admin/category',{
         userInfo:req.userInfo
     });
+});
+
+router.get('/category/add',function(req,res,next){
+    res.render('admin/categoryAdd',{
+        userInfo:req.userInfo
+    });
+});
+
+router.post('/category/add',function(req,res,next){
+    var name = req.body.categoryName || '';
+    if(name === '')
+    {
+        res.render('admin/error',{
+           userInfo:req.userInfo,
+            message:'提交的内容不得为空！！！',
+            operations:{
+               url:'javascript:window.history.back()',
+                operation:'返回上一步'
+            }
+        });
+    }
 });
 
 module.exports = router;

@@ -41,7 +41,7 @@ app.use(function(req,res,next){
 mongoose.Promise = require('bluebird');
 
 app.use('/',require('./routers/main'));
-app.use('/api', require('./routers/api'));
+app.use('/logins', require('./routers/login'));
 app.use('/admins', require('./routers/admin'));
 mongoose.connect('mongodb://localhost:27018/blog',function (err) {
     if(err){
