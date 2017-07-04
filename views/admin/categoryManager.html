@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<h3>分类列表</h3>
+<table class ="categoryList">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>分类名</th>
+        <th>备注</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for category in data %}
+    <tr>
+        <td>{{category._id.toString}}</td>
+        <td>{{category.name}}</td>
+        <td>
+            <a href="/admins/category/edit">修改</a>
+            <a href="/admins/category/delete">删除</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include 'page.html' %}
+{% endblock %}

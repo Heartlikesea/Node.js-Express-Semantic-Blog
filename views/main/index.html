@@ -94,7 +94,7 @@
         <li><a href="index.html">关于</a></li>
          <li><a id = "loginInfo">
              {% if userInfo.isAdmin %}
-             <span id = "admin" style = "cursor:pointer;">管理员您好，进入管理</span>
+             <a href="/admins">管理员您好，进入管理</a>
              {% elseif userInfo.username != null%}
              <span>{{userInfo.username}}</span>
              {% else %}
