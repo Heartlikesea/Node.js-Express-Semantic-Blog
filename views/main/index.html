@@ -54,7 +54,8 @@
                         alert(data.message);
                         if(!data.code)
                         {
-                            window.location.reload();
+                            $('#logout').show();
+
                         }
                     },
                     error:function (err) {
@@ -89,9 +90,9 @@
 <nav class="navbar">
     <ul>
         <li><a href="index.html">首页</a></li>
-        <li><a href="index.html">文章</a></li>
-        <li><a href="index.html">作品</a></li>
-        <li><a href="index.html">关于</a></li>
+        <li><a href="article.html">文章</a></li>
+        <li><a href="portfolio.html">作品</a></li>
+        <li><a href="about.html">关于</a></li>
          <li>{% if userInfo.isAdmin %}
              <a href="/admins">管理员您好，进入管理</a>
              {% elseif userInfo.username != null%}
@@ -105,7 +106,18 @@
         </div>
 
     </ul>
+
+    <ul class = "navArticle">
+        {% if !userInfo._id %}
+        <li><a href="javascript:;">仅限注册用户查看</a></li>
+        {% else %}
+        {% for category in categories %}
+        <li><a href="javascript:;">{{category.name}}</a> </li>
+        {% endfor %}
+        {% endif %}
+    </ul>
 </nav>
+
 
 <div class="banner-wrap" id = "loginAndRegister">
     <div class="login" id="register">
@@ -124,7 +136,6 @@
         <span><input  class="submit" type="button" value="提交"/></span>
         <span>没有账号？马上<a href="javascript:;">注册</a></span>
     </div>
-
 
 
 </body>

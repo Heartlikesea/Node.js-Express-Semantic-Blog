@@ -130,6 +130,18 @@ router.get('/edit',function(req,res,next){
 router.post('/edit',function(req,res,next){
     var id = req.query.id||'';
     var name = req.body.name || '';
+    if(!id)
+    {
+        res.render('admin/error',{
+            userInfo:req.userInfo,
+            message:'Id错误!!!',
+            operations:{
+                url:'javascript:window.history.back()',
+                operation:'返回上一步'
+            }
+        });
+        return Promise.resolve('Id错误');
+    }
     categoriesDBs.findOne({
         _id : id
     }).then(function (categoryInfo) {
@@ -199,5 +211,49 @@ router.post('/edit',function(req,res,next){
     })
 });
 
+router.get('/delete',function (req, res, next) {
+   var id = req.query.id||'';
+    if(!id)
+    {
+        res.render('admin/error',{
+            userInfo:req.userInfo,
+            message:'Id错误!!!',
+            operations:{
+                url:'javascript:window.history.back()',
+                operation:'返回上一步'
+            }
+        });
+        return Promise.resolve('Id错误');
+    }
+    categoriesDBs.findOne({
+        _id:id
+    }).then(function (categoryInfo) {
+        if(!categoryInfo)
+        {
+            res.render('/admin/error',{
+                userInfo:req.body.userInfo,
+                message:'该分类不存在数据库中！！！',
+                operations:{
+                    url:'/category/categories',
+                    operation:'返回分类管理'
+                }
+            })
+            return Promise.resolve('该分类不存在数据库中');
+        }else{
+            return categoriesDBs.remove({
+                _id:id
+            })
+        }
+    }).then(function () {
+        res.render('admin/success',{
+            userInfo:req.userInfo,
+            message:'删除分类成功!!!',
+            operations:{
+                url:'/category/categories',
+                operation:'返回分类管理'
+            }
+        });
+    })
+});
 
 module.exports = router;

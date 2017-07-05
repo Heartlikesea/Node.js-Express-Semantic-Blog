@@ -20,10 +20,12 @@ var userDBs = require('./model/userDB');
 app.use(function(req,res,next){
     req.cookies=new Cookies(req,res);
 
+    // 解析cookie信息
     if(req.cookies.get('userInfo')){
         try {
             req.userInfo=JSON.parse(req.cookies.get('userInfo'));
 
+            // 获取当前用户登录的类型，是否管理员
             userDBs.findById(req.userInfo._id).then(function(userInfo){
                 req.userInfo.isAdmin=Boolean(userInfo.isAdmin);
 
@@ -35,6 +37,7 @@ app.use(function(req,res,next){
     }else{
         next();
     }
+
 });
 mongoose.Promise = require('bluebird');
 
