@@ -8,7 +8,7 @@ router.get('/',function (req, res, next) {
     categoriesDBs.find().then(function (info) {
         res.render('main/index',{
             userInfo:req.userInfo,
-            categories:info
+            categories:info.reverse()
         });
     });
 

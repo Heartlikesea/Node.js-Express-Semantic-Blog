@@ -44,7 +44,9 @@ mongoose.Promise = require('bluebird');
 app.use('/',require('./routers/main'));
 app.use('/logins', require('./routers/login'));
 app.use('/admins', require('./routers/admin'));
+app.use('/contents', require('./routers/contentAdmin'));
 app.use('/category', require('./routers/categoryAdmin'));
+
 mongoose.connect('mongodb://localhost:27018/blog',function (err) {
     if(err){
         console.warn('mongoDB connect Error');
