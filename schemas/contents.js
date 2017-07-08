@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 module.exports = new mongoose.Schema({
    category:{
-       type:mongoose.Schema.Tpyes.ObjectId,
+       type:mongoose.Schema.Types.ObjectId,
        ref:'Category'
    },
     views:{
