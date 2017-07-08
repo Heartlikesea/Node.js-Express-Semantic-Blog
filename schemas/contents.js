@@ -8,6 +8,10 @@ module.exports = new mongoose.Schema({
        type:mongoose.Schema.Tpyes.ObjectId,
        ref:'Category'
    },
+    views:{
+        type:Number,
+        default:0
+    },
     title:String,
     description:{
        type:String,
