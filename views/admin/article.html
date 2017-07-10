@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+{% for content in data %}
+<div>
+    <p>{{content.description}}</p>
+    <address>推送于{{content.date}}</address>
+</div>
+{% endfor %}
+<div>
+    <ul>
+        {% if pages>0 %}
+        <li><a href="/article?category={{category.toString()}}&page=1">第一页</a></li>
+        {% if page-1!==0 %}
+        <li><a href="/article?category={{category.toString()}}&page={{page-1}}">上一页</a></li>
+        {%endif%}
+
+        <li style="background:rgb(166,96,183);"><a style="color:#fff;"  href="javascript:;">{{page}}/{{pages}}</a></li>
+
+        {% if page+1<=pages %}
+        <li><a href="/article?category={{category.toString()}}&page={{page+1}}">下一页</a></li>
+        {% endif %}
+        <li><a href="/article?category={{category.toString()}}&page={{pages}}">最后页</a></li>
+        {% else %}
+        <li style="width: 100%;text-align: center;">当前分类没有任何文章！</li>
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}

@@ -5,13 +5,13 @@ var express = require('express');
 var router = express.Router();
 var categoriesDBs = require('../model/categoriesDB');
 router.get('/',function (req, res, next) {
-    res.render('admin/category',{
+    res.render('admin/categoryAdmin/category',{
         userInfo:req.userInfo
     });
 });
 
 router.get('/add',function(req,res,next){
-    res.render('admin/categoryAdd',{
+    res.render('admin/categoryAdmin/categoryAdd',{
         userInfo:req.userInfo
     });
 });
@@ -77,7 +77,7 @@ router.get('/categories',function (req, res, next) {
         page = Math.max(page,1);
         var skip = (page - 1) * limit;
         categoriesDBs.find().limit(limit).skip(skip).then(function (user) {
-            res.render('admin/categoriesManager',{
+            res.render('admin/categoryAdmin/categoriesManager',{
                 userInfo:req.userInfo,
                 users:user,
                 page:page,
@@ -119,7 +119,7 @@ router.get('/edit',function(req,res,next){
             return Promise.resolve('分类信息不存在');
         }else
         {
-            res.render('admin/edit',{
+            res.render('admin/categoryAdmin/edit',{
                 userInfo:req.userInfo,
                 category:categoryInfo
             });
