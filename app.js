@@ -5,6 +5,8 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var bodyParser=require('body-parser');
+var cookieParser=require('cookie-parser');
+var session = require('express-session');
 app.use('/public',express.static(__dirname+'/public'));
 var swigs=require('swig');
 app.set('view engine','html');
@@ -15,8 +17,16 @@ app.set('views','./views');
 swigs.setDefaults({cache:false});
 app.use(bodyParser.urlencoded({extended:true}));
 
-var Cookies=require('cookies');
 var userDBs = require('./model/userDB');
+app.use(cookieParser());
+app.use(session({
+    secret:'lmBlog',
+    cookie:{maxAge:10 * 1000},
+    resave:false,
+    saveUninitialized:false
+}));
+
+
 app.use(function(req,res,next){
     req.cookies=new Cookies(req,res);
 

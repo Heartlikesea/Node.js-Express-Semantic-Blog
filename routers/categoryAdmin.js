@@ -237,7 +237,7 @@ router.get('/delete',function (req, res, next) {
                     url:'/category/categories',
                     operation:'返回分类管理'
                 }
-            })
+            });
             return Promise.resolve('该分类不存在数据库中');
         }else{
             return categoriesDBs.remove({

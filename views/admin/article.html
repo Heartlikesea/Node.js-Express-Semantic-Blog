@@ -2,6 +2,8 @@
 
 {% block main %}
 {% for content in data %}
+{{content.date.slice(5,11)}}
+{{content.category.name.slice(0,3)+'..'}}
 <div>
     <p>{{content.description}}</p>
     <address>推送于{{content.date}}</address>

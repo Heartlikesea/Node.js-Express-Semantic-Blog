@@ -3,8 +3,10 @@
  */
 var express = require('express');
 var userDBs = require('../model/userDB');
+
 var router = express.Router();
 var responseData = null;
+
 
 router.use(function (req, res, next) {
    responseData = {
@@ -41,11 +43,9 @@ router.post('/user/login',function(req,res,next){
             responseData.message = '登录成功！';
             responseData.userInfo = userInfo.username;
             //每当用户访问站点，将保存用户信息。
-            req.cookies.set('userInfo',JSON.stringify({
-                    _id:userInfo._id,
-                    username:userInfo.username
-                })
-            );//把id和用户名作为一个对象存到一个名字为“userInfo”的对象里面。
+            req.session.user=userInfo;
+            console.warn(req.session.user);
+            console.warn(req.session.user.username);
 
             res.json(responseData);
             return;

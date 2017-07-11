@@ -46,6 +46,8 @@ router.get('/view',function (req, res, next) {
         return contentDB.findOne({_id:contentId});
     }).then(function (contentInfo) {
         data.content=contentInfo;
+        contentInfo.views++;
+        contentInfo.save();
         console.log(data);
         res.render('main/view',data);
     });
