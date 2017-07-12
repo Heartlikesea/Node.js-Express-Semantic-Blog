@@ -106,10 +106,18 @@ router.post('/user/register',function (req, res, next) {
 });
 
 router.get('/user/logout',function (req, res) {
-    req.cookies.set('userInfo',JSON.stringify({
-        _id:null,
-        username:null
-    }));
+    req.session.destroy(function (err) {
+        if(err)
+        {
+            responseData.code=5;
+            responseData.message='退出失败！';
+            res.json(responseData);
+            return;
+        }
+        req.session.loginUser = null;
+        responseData.code=0;
+        responseData.message='退出成功！';
+    });
     res.json(responseData);
     return;
 });

@@ -18,4 +18,4 @@ app.use(session({
     }
 }));
 
-module.exports={};
+module.exports=app;

@@ -169,4 +169,36 @@ router.post('/edit',function(req,res,next){
         });
     });
 });
+
+router.post('/comment/post',function (req, res, next) {
+    var contentId = req.body.contentId || '';
+    var postData ={
+        username:req.userInfo.username,
+        postTime:new ConvertDate().getDate(),
+        content:req.body.content
+    };
+    contentDBs.findOne({
+        _id:contentId
+    }).then(function (contentInfo) {
+        contentInfo.comments.push(postData);
+        return contentInfo.save()
+    }).then(function (newContentinfo) {
+        responseData.message='评论成功!';
+        responseData.data=newContentinfo;
+        res.json(responseData);
+    })
+});
+
+router.get('/comment',function (req,res,next)
+{
+    var contentId = req.query.contentId||'';
+    contentDBs.findOne({
+        _id:contentId
+    }).then(function (contentInfo) {
+        responseData.data=contentInfo;
+        res.json(responseData);
+    })
+});
+
+
 module.exports = router;
