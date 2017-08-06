@@ -1,0 +1,19 @@
+<%- include('../header') %>
+<div class="login">
+    <div class="ui grid">
+        <div class="four wide column"></div>
+        <div class="eight wide column">
+            <form class="ui form segment" method="post">
+                <div class="field required">
+                    <label>将<%= categoryInfo.name %>修改为：</label>
+                    <input placeholder="" type="text" name="name">
+                    <label>备注</label>
+                    <input placeholder="" type="text" name="remark">
+                </div>
+                <input type="submit" class="ui button fluid" value="添加">
+            </form>
+        </div>
+    </div>
+
+</div>
+<%- include('../footer') %>

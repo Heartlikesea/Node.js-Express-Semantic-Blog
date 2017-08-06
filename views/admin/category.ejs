@@ -1,0 +1,28 @@
+<%- include('../header') %>
+<div class="category">
+    <table class="ui striped table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>分类名</th>
+            <th>备注</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% categories.forEach(function(category){ %>
+        <tr>
+            <td><%= category._id%></td>
+            <td><%= category.name%></td>
+            <td><%= category.remark%></td>
+            <td>
+                <a href="/admins/<%=category._id%>/edit">修改</a>
+                <a href="/admins/<%=category._id%>/delete">删除</a>
+            </td>
+        </tr>
+        <%})%>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../footer') %>

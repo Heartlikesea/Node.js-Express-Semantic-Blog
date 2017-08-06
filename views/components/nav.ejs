@@ -1,0 +1,67 @@
+<div class="nav">
+    <iframe width="280" scrolling="no" height="25" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=34&icon=1&num=3"></iframe>
+    <a href="/main"><h1><%= blog.title %></h1></a>
+    <p><%= blog.description %></p>
+    <form action="/cearch">
+        <div class="item">
+            <div class="ui icon input">
+                <input  placeholder="搜索..." type="text" name="cearchName">
+                <i class="search link icon"></i>
+                <input type="submit" style="display: none">
+                <!--<a class="item" href="/main"></a>-->
+            </div>
+        </div>
+    </form>
+
+    <div class="ui menu">
+                <a class="item" href="/main">首页</a>
+                <a class="item" href="/main">博客</a>
+                <!--<div class="ui pointing dropdown link item">专题-->
+                    <!--<i class="dropdown icon"></i>-->
+                    <!--<div class = "menu">-->
+                        <!--<a class="item" href="/admins/categoryAdd">国际</a>-->
+                        <!--<a class="item" href="/admins/categoryAdd">科技</a>-->
+                        <!--<a class="item" href="/admins/category">美食</a>-->
+                        <!--<a class="item" href="/admins/categoryAdd">时尚</a>-->
+                        <!--<a class="item" href="/admins/categoryAdd">体育</a>-->
+                        <!--<a class="item" href="/admins/categoryAdd">财经</a>-->
+                        <!--<a class="item" href="/admins/categoryAdd">闲谈</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <a class="item" href="/main">段子</a>
+                <a class="item" href="/main">图片</a>
+                <% if (!user) { %>
+                <div class="right menu">
+                    <a class="item" href="/login">登录</a>
+                    <a class="item" href="/register">注册</a>
+                    <a class="item" href="/main">建议</a>
+                    <a class="item" href="/main">关于</a>
+                </div>
+                <% } else if (user.admin){ %>
+                <a class="item" href="/main?author=<%= user._id %>">个人主页</a>
+                <div class="ui pointing dropdown link item">分类管理
+                    <i class="dropdown icon"></i>
+                    <div class = "menu">
+                        <a class="item" href="/admins/category">管理首页</a>
+                        <a class="item" href="/admins/categoryAdd">添加分类</a>
+                    </div>
+                </div>
+                <a class="item" href="/main/create">发表文章</a>
+                <div class="right menu">
+                    <a class="item" href="/loginout">登出</a>
+                    <a class="item" href="/main">建议</a>
+                    <a class="item" href="/main">关于</a>
+                </div>
+                <% } else {%>
+                <a class="item" href="/main?author=<%= user._id %>">个人主页</a>
+                <a class="item" href="/main/create">发表文章</a>
+                <div class="right menu">
+                    <a class="item" href="/loginout">登出</a>
+                    <a class="item" href="/main">建议</a>
+                    <a class="item" href="/main">关于</a>
+                </div>
+                <% }%>
+        </div>
+
+
+</div>
